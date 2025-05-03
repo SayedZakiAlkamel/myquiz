@@ -6,7 +6,7 @@ My game is about Quiz. It is multiplechoose questions that each quesion has four
 When player answer question if the true will get one mark then answer the second question if the answer false will not get one mark so on. player could move between question by press passs button or next button until last question after press finih button player will get final score.
 The player should follow this the instruction.
 
-Getting starting:
+Getting starting: https://github.com/SayedZakiAlkamel/myquiz
  
 
 Technologies Used: HTML, Javascript and css

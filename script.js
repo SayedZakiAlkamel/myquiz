@@ -1,40 +1,40 @@
 (function(){
-    // Functions
-    function buildQuiz(){
-        // variable to store the HTML output
+    // The Functions
+    function beginQuiz(){
+        // The variable to store  HTML output
         const output = [];
 
-        // for each question...
+        // for all question...
         myQuestions.forEach(
-            (currentQuestion, questionNumber) => {
+            (presentQuestion, question_Number) => {
 
-                // variable to store the list of possible answers
+                // The variable to store  list of possible answers
                 const answers = [];
 
-                // and for each available answer...
-                for(letter in currentQuestion.answers){
+                // and for all available answer...
+                for(letter in presentQuestion.answers){
 
                     // ...add an HTML radio button
                     answers.push(
                         `<label>
-                            <input type="radio" name="question${questionNumber}" value="${letter}"/>
+                            <input type="radio" name="question${question_Number}" value="${letter}"/>
                             ${letter} :
-                            ${currentQuestion.answers[letter]}
+                            ${presentQuestion.answers[letter]}
                         </label>`
                     );
                 }
 
-                // add this question and its answers to the output
+                // add this question and its answers to output
                 output.push(
                     `<div class="slide">
-                        <div class="question"> ${currentQuestion.question} </div>
+                        <div class="question"> ${presentQuestion.question} </div>
                         <div class="answers"> ${answers.join("")} </div>
                     </div>`
                 );
             }
         );
 
-        // finally combine our output list into one string of HTML and put it on the page
+        // finally combine our output the list into one string of HTML and put it on the page
         quizContainer.innerHTML = output.join('');
     }
 
@@ -43,47 +43,47 @@
         // gather answer containers from our quiz
         const answerContainers = quizContainer.querySelectorAll('.answers');
 
-        // keep track of user's answers
-        let numCorrect = 0;
+        // keep track of the user's answers
+        let num_Correct = 0;
 
-        // for each question...
-        myQuestions.forEach( (currentQuestion, questionNumber) => {
+        // for all question...
+        myQuestions.forEach( (presentQuestion, question_Number) => {
 
             // find selected answer
-            const answerContainer = answerContainers[questionNumber];
-            const selector = `input[name=question${questionNumber}]:checked`;
+            const answerContainer = answerContainers[question_Number];
+            const selector = `input[name=question${question_Number}]:checked`;
             const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
             // if answer is correct
-            if(userAnswer === currentQuestion.correctAnswer){
-                // add to the number of correct answers
-                numCorrect++;
+            if(userAnswer === presentQuestion.correctAnswer){
+                // add to  number of the correct answers
+                num_Correct++;
 
                 // color the answers green
-                answerContainers[questionNumber].style.color = 'lightgreen';
+                answerContainers[question_Number].style.color = 'lightgreen';
             }
-            // if answer is wrong or blank
+            // if answer is blank or wrong
             else{
                 // color the answers red
-                answerContainers[questionNumber].style.color = 'red';
+                answerContainers[question_Number].style.color = 'red';
             }
         });
 
-        // show number of correct answers out of total
-        resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+        // show number of right answers out of total
+        resultsContainer.innerHTML = `${num_Correct} out of ${myQuestions.length}`;
     }
 
     function showSlide(n) {
-        slides[currentSlide].classList.remove('active-slide');
-        slides[n].classList.add('active-slide');
-        currentSlide = n;
-        if(currentSlide === 0){
-            previousButton.style.display = 'none';
+        theSlides[presentSlide].classList.remove('active-slide');
+        theSlides[n].classList.add('active-slide');
+        presentSlide = n;
+        if(presentSlide === 0){
+            pastButton.style.display = 'none';
         }
         else{
-            previousButton.style.display = 'inline-block';
+            pastButton.style.display = 'inline-block';
         }
-        if(currentSlide === slides.length-1){
+        if(presentSlide === theSlides.length-1){
             nextButton.style.display = 'none';
             submitButton.style.display = 'inline-block';
         }
@@ -93,36 +93,36 @@
         }
     }
 
-    function showNextSlide() {
-        showSlide(currentSlide + 1);
+    function show_Next_Slide() {
+        showSlide(presentSlide + 1);
     }
 
-    function showPreviousSlide() {
-        showSlide(currentSlide - 1);
+    function show_PreviousSlide() {
+        showSlide(presentSlide - 1);
     }
 
-    // Variables
-    const quizContainer = document.getElementById('quiz');
-    const resultsContainer = document.getElementById('results');
-    const submitButton = document.getElementById('submit');
+    // The Variables
+    const quizContainer = document.getElementById('quizes');
+    const resultsContainer = document.getElementById('scores');
+    const submitButton = document.getElementById('finish');
     const myQuestions = [
         {
-            question: "What is the chemical symbol for water?",
+            question: "What does HTML stand for?",
             answers: {
-                a: "Wo",
-                b: "Wa",
-                c: "H2O",
-                d: "HO2"
+                a: "Hyperlinks and Text Markup language",
+                b: "Home Tool Markup Language",
+                c: "Hyper Text Markup Language",
+                d: "Hyper To Markup Language"
             },
             correctAnswer: "c"
         },
         {
-            question: "What is the capital city of France?",
+            question: "What is the color of An apple?",
             answers: {
-                a: "Berlin",
-                b: "Madrid",
-                c: "Rome",
-                d: "Paris"
+                a: "Brown",
+                b: "Blue",
+                c: "Orange",
+                d: "Red"
             },
             correctAnswer: "d"
         },
@@ -132,46 +132,45 @@
                 a: "Yen",
                 b: "Dinar",
                 c: "Won",
-                d: "Ringgit"
+                d: "dirham"
             },
             correctAnswer: "b"
         },
         {
-            question: "What is the largest planet in our solar system?",
+            question: "What is the currency of UAE ?",
             answers: {
-                a: "Mars",
-                b: "Saturn",
-                c: "Jupiter",
-                d: "Neptune"
+                a: "Yen",
+                b: "Dinar",
+                c: "Dirham",
+                d: "Dolar"
             },
             correctAnswer: "c"
         },
         {
-            question: "What is the currency of Japan?",
+            question: "What is the currency of USA?",
             answers: {
-                a: "Yuan",
-                b: "Won",
-                c: "Yen",
-                d: "Ringgit"
+                a: "Yen",
+                b: "Dinar",
+                c: "Dolar",
+                d: "dirham"
             },
             correctAnswer: "c"
         }
     ];
 
     // Kick things off
-    buildQuiz();
+    beginQuiz();
 
-    // Pagination
-    const previousButton = document.getElementById("previous");
-    const nextButton = document.getElementById("next");
-    const slides = document.querySelectorAll(".slide");
-    let currentSlide = 0;
+    
+    const pastButton = document.getElementById("previousQuestion");
+    const nextButton = document.getElementById("nextQuestion");
+    const theSlides = document.querySelectorAll(".slide");
+    let presentSlide = 0;
 
-    // Show the first slide
-    showSlide(currentSlide);
+    // Show  first slide
+    showSlide(presentSlide);
 
-    // Event listeners
     submitButton.addEventListener('click', showResults);
-    previousButton.addEventListener("click", showPreviousSlide);
-    nextButton.addEventListener("click", showNextSlide);
+    pastButton.addEventListener("click", show_PreviousSlide);
+    nextButton.addEventListener("click", show_Next_Slide);
 })();
